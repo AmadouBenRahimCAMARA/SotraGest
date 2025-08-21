@@ -1,0 +1,5 @@
+Prérequis => avoir java, javafx, et postgres installés avec l'IDE NetBeans et avoir crée une base de donnée postgres nommé "sotragest" appartenant à l'utilisateur "postgres" qui a le même mot de passe que dans le fichier de configuration "ConfigurationBaseDonnees.java" du code source fourni.
+En étant placé dans le dossier racine du projet sotragest dans le terminal pour =
+Compiler le logiciel SotraGest faire => mvn clean compile
+Exécuter le logiciel SotraGest faire => mvn exec:java -Dexec.mainClass=com.sotragest.SotraGestApplication
+
