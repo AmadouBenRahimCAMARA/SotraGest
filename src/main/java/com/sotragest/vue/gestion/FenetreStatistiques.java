@@ -2,6 +2,8 @@ package com.sotragest.vue.gestion;
 
 import com.sotragest.dao.*;
 import com.sotragest.modele.*;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.*;
@@ -76,7 +78,9 @@ public class FenetreStatistiques {
             "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);"
         );
 
-        Label titreSection = new Label("📊 Statistiques Générales");
+        FontAwesomeIconView iconeTitre = new FontAwesomeIconView(FontAwesomeIcon.BAR_CHART);
+        iconeTitre.setSize("1.5em");
+        Label titreSection = new Label("Statistiques Générales", iconeTitre);
         titreSection.setFont(Font.font("Arial", FontWeight.BOLD, 18));
         titreSection.setTextFill(Color.web("#2c3e50"));
 
@@ -112,23 +116,23 @@ public class FenetreStatistiques {
         grille.setPadding(new Insets(10));
 
         // Ligne 1
-        grille.add(creerCarteStatistique("👥", "Total Voyageurs", String.valueOf(voyageurs.size()), "#3498db"), 0, 0);
-        grille.add(creerCarteStatistique("👨‍✈️", "Chauffeurs Actifs", String.valueOf(chauffeursActifs), "#e67e22"), 1, 0);
-        grille.add(creerCarteStatistique("🚌", "Bus Disponibles", String.valueOf(busDisponibles), "#f39c12"), 2, 0);
-        grille.add(creerCarteStatistique("🛣️", "Total Trajets", String.valueOf(trajets.size()), "#9b59b6"), 3, 0);
+        grille.add(creerCarteStatistique(FontAwesomeIcon.USERS, "Total Voyageurs", String.valueOf(voyageurs.size()), "#3498db"), 0, 0);
+        grille.add(creerCarteStatistique(FontAwesomeIcon.USER_SECRET, "Chauffeurs Actifs", String.valueOf(chauffeursActifs), "#e67e22"), 1, 0);
+        grille.add(creerCarteStatistique(FontAwesomeIcon.BUS, "Bus Disponibles", String.valueOf(busDisponibles), "#f39c12"), 2, 0);
+        grille.add(creerCarteStatistique(FontAwesomeIcon.ROAD, "Total Trajets", String.valueOf(trajets.size()), "#9b59b6"), 3, 0);
 
         // Ligne 2
-        grille.add(creerCarteStatistique("🎫", "Tickets Vendus", String.valueOf(tickets.size()), "#9b59b6"), 0, 1);
-        grille.add(creerCarteStatistique("💰", "CA Total", String.format("%.0f FCFA", chiffreAffairesTotal), "#27ae60"), 1, 1);
-        grille.add(creerCarteStatistique("📅", "Trajets Aujourd'hui", String.valueOf(trajetsAujourdhui), "#3498db"), 2, 1);
-        grille.add(creerCarteStatistique("📈", "CA Moyen/Ticket", 
+        grille.add(creerCarteStatistique(FontAwesomeIcon.TICKET, "Tickets Vendus", String.valueOf(tickets.size()), "#9b59b6"), 0, 1);
+        grille.add(creerCarteStatistique(FontAwesomeIcon.MONEY, "CA Total", String.format("%.0f FCFA", chiffreAffairesTotal), "#27ae60"), 1, 1);
+        grille.add(creerCarteStatistique(FontAwesomeIcon.CALENDAR, "Trajets Aujourd'hui", String.valueOf(trajetsAujourdhui), "#3498db"), 2, 1);
+        grille.add(creerCarteStatistique(FontAwesomeIcon.LINE_CHART, "CA Moyen/Ticket", 
             String.format("%.0f FCFA", tickets.isEmpty() ? 0 : chiffreAffairesTotal / tickets.size()), "#1abc9c"), 3, 1);
 
         conteneur.getChildren().addAll(titreSection, grille);
         return conteneur;
     }
 
-    private VBox creerCarteStatistique(String icone, String titre, String valeur, String couleur) {
+    private VBox creerCarteStatistique(FontAwesomeIcon icone, String titre, String valeur, String couleur) {
         VBox carte = new VBox(8);
         carte.setAlignment(Pos.CENTER);
         carte.setPadding(new Insets(15));
@@ -142,9 +146,9 @@ public class FenetreStatistiques {
             "-fx-border-radius: 8;"
         );
 
-        Label labelIcone = new Label(icone);
-        labelIcone.setFont(Font.font(20));
-        labelIcone.setTextFill(Color.web("#000000"));
+        FontAwesomeIconView labelIcone = new FontAwesomeIconView(icone);
+        labelIcone.setSize("2em");
+        labelIcone.setFill(Color.web("#000000"));
 
         Label labelTitre = new Label(titre);
         labelTitre.setFont(Font.font("Arial", FontWeight.MEDIUM, 12));
@@ -238,7 +242,9 @@ public class FenetreStatistiques {
             "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);"
         );
 
-        Label titre = new Label("🏆 Top 5 des Trajets les Plus Demandés");
+        FontAwesomeIconView iconeTitre = new FontAwesomeIconView(FontAwesomeIcon.TROPHY);
+        iconeTitre.setSize("1.5em");
+        Label titre = new Label("Top 5 des Trajets les Plus Demandés", iconeTitre);
         titre.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         titre.setTextFill(Color.web("#2c3e50"));
 
@@ -288,7 +294,9 @@ public class FenetreStatistiques {
             "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);"
         );
 
-        Label titre = new Label("👨‍✈️ Statistiques des Chauffeurs");
+        FontAwesomeIconView iconeTitre = new FontAwesomeIconView(FontAwesomeIcon.USER_SECRET);
+        iconeTitre.setSize("1.5em");
+        Label titre = new Label("Statistiques des Chauffeurs", iconeTitre);
         titre.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         titre.setTextFill(Color.web("#2c3e50"));
 
