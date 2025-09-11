@@ -30,6 +30,13 @@
             <version>${javafx.version}</version>
         </dependency>
 
+        <!-- FontAwesomeFX -->
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-fontawesome</artifactId>
+            <version>4.7.0-9.1.2</version>
+        </dependency>
+
         <!-- PostgreSQL -->
         <dependency>
             <groupId>org.postgresql</groupId>

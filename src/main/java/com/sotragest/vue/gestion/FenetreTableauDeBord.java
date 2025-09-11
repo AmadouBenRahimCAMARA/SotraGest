@@ -2,6 +2,8 @@ package com.sotragest.vue.gestion;
 
 import com.sotragest.dao.*;
 import com.sotragest.modele.Utilisateur;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -103,11 +105,11 @@ public class FenetreTableauDeBord {
         int nombreTickets = ticketDAO.obtenirTousLesTickets().size();
 
         // Créer les cartes avec icônes et couleurs
-        VBox carteVoyageurs = creerCarteStatistique("👥", "Voyageurs", String.valueOf(nombreVoyageurs), "#3498db");
-        VBox carteChauffeurs = creerCarteStatistique("👨‍✈️", "Chauffeurs", String.valueOf(nombreChauffeurs), "#e67e22");
-        VBox carteBus = creerCarteStatistique("🚌", "Bus", String.valueOf(nombreBus), "#f39c12");
-        VBox carteTrajets = creerCarteStatistique("🛣️", "Trajets", String.valueOf(nombreTrajets), "#9b59b6");
-        VBox carteTickets = creerCarteStatistique("🎫", "Tickets vendus", String.valueOf(nombreTickets), "#27ae60");
+        VBox carteVoyageurs = creerCarteStatistique(FontAwesomeIcon.USERS, "Voyageurs", String.valueOf(nombreVoyageurs), "#3498db");
+        VBox carteChauffeurs = creerCarteStatistique(FontAwesomeIcon.USER_SECRET, "Chauffeurs", String.valueOf(nombreChauffeurs), "#e67e22");
+        VBox carteBus = creerCarteStatistique(FontAwesomeIcon.BUS, "Bus", String.valueOf(nombreBus), "#f39c12");
+        VBox carteTrajets = creerCarteStatistique(FontAwesomeIcon.ROAD, "Trajets", String.valueOf(nombreTrajets), "#9b59b6");
+        VBox carteTickets = creerCarteStatistique(FontAwesomeIcon.TICKET, "Tickets vendus", String.valueOf(nombreTickets), "#27ae60");
 
         // Ajouter les cartes à la grille
         grileStatistiques.add(carteVoyageurs, 0, 0);
@@ -120,7 +122,7 @@ public class FenetreTableauDeBord {
     }
 
     // Création d'une carte individuelle
-    private VBox creerCarteStatistique(String icone, String titre, String valeur, String couleur) {
+    private VBox creerCarteStatistique(FontAwesomeIcon icone, String titre, String valeur, String couleur) {
         VBox carte = new VBox(10);
         carte.setAlignment(Pos.CENTER);
         carte.setPadding(new Insets(20));
@@ -132,9 +134,9 @@ public class FenetreTableauDeBord {
             "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);"
         );
 
-        Label labelIcone = new Label(icone);
-        labelIcone.setFont(Font.font(24));
-        labelIcone.setTextFill(Color.web("#000000"));
+        FontAwesomeIconView labelIcone = new FontAwesomeIconView(icone);
+        labelIcone.setSize("2em");
+        labelIcone.setFill(Color.web("#000000"));
 
         Label labelTitre = new Label(titre);
         labelTitre.setFont(Font.font("Arial", FontWeight.MEDIUM, 14));
@@ -169,28 +171,26 @@ public class FenetreTableauDeBord {
         int trajetsAujourdhui = trajetDAO.rechercherTrajets(null, null,
             LocalDateTime.now().withHour(0).withMinute(0),
             LocalDateTime.now().withHour(23).withMinute(59)).size();
-        String texteTrajets = trajetsAujourdhui == 0 ?
-            "🚌 Aucun trajet programmé aujourd'hui." :
-            "🚌 Trajets programmés aujourd'hui : " + trajetsAujourdhui;
-        Label infoTrajetsAujourdhui = new Label(texteTrajets);
+        
+        FontAwesomeIconView iconeTrajet = new FontAwesomeIconView(FontAwesomeIcon.BUS);
+        iconeTrajet.setSize("1.2em");
+        Label infoTrajetsAujourdhui = new Label("Trajets programmés aujourd'hui : " + trajetsAujourdhui, iconeTrajet);
         infoTrajetsAujourdhui.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
         infoTrajetsAujourdhui.setTextFill(Color.web("#2c3e50"));
 
         // Bus disponibles
         int busDisponibles = busDAO.obtenirBusDisponibles().size();
-        String texteBus = busDisponibles == 0 ?
-            "❌ Aucun bus disponible." :
-            "✅ Bus disponibles pour trajets : " + busDisponibles;
-        Label infoBusDisponibles = new Label(texteBus);
+        FontAwesomeIconView iconeBus = new FontAwesomeIconView(busDisponibles == 0 ? FontAwesomeIcon.TIMES_CIRCLE : FontAwesomeIcon.CHECK_CIRCLE);
+        iconeBus.setSize("1.2em");
+        Label infoBusDisponibles = new Label("Bus disponibles pour trajets : " + busDisponibles, iconeBus);
         infoBusDisponibles.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
         infoBusDisponibles.setTextFill(Color.web("#2c3e50"));
         
         // Chauffeurs disponibles
         int chauffeursDisponibles = chauffeurDAO.obtenirChauffeursDisponibles().size();
-        String texteChauffeurs = chauffeursDisponibles == 0 ?
-            "⚠ Aucun chauffeur disponible." :
-            "👨‍✈️ Chauffeurs avec permis valide : " + chauffeursDisponibles;
-        Label infoChauffeurs = new Label(texteChauffeurs);
+        FontAwesomeIconView iconeChauffeur = new FontAwesomeIconView(chauffeursDisponibles == 0 ? FontAwesomeIcon.WARNING : FontAwesomeIcon.USER_SECRET);
+        iconeChauffeur.setSize("1.2em");
+        Label infoChauffeurs = new Label("Chauffeurs avec permis valide : " + chauffeursDisponibles, iconeChauffeur);
         infoChauffeurs.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
         infoChauffeurs.setTextFill(Color.web("#2c3e50"));
 

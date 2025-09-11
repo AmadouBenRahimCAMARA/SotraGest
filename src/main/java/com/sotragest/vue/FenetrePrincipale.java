@@ -1,10 +1,11 @@
 package com.sotragest.vue;
 
 import com.sotragest.dao.UtilisateurDAO;
-import com.sotragest.modele.Agent;
 import com.sotragest.modele.Gerant;
 import com.sotragest.modele.Utilisateur;
 import com.sotragest.vue.gestion.*;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.util.Optional;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -109,19 +110,19 @@ public class FenetrePrincipale {
         menuGauche.getChildren().add(titreMenu);
 
         // Tableau de bord (toujours accessible)
-        ajouterBoutonMenu("📊 Tableau de bord", e -> afficherTableauDeBord());
+        ajouterBoutonMenu(FontAwesomeIcon.TACHOMETER, "Tableau de bord", e -> afficherTableauDeBord());
 
         // Gestion des voyageurs (accessible à tous)
-        ajouterBoutonMenu("👥 Gestion des voyageurs", e -> afficherGestionVoyageurs());
+        ajouterBoutonMenu(FontAwesomeIcon.USERS, "Gestion des voyageurs", e -> afficherGestionVoyageurs());
 
         // Vente de tickets (accessible à tous)
-        ajouterBoutonMenu("🎫 Vente de tickets", e -> afficherVenteTickets());
+        ajouterBoutonMenu(FontAwesomeIcon.TICKET, "Vente de tickets", e -> afficherVenteTickets());
 
         // Historique des ventes (accessible à tous)
-        ajouterBoutonMenu("📈 Historique des ventes", e -> afficherHistoriqueVentes());
+        ajouterBoutonMenu(FontAwesomeIcon.HISTORY, "Historique des ventes", e -> afficherHistoriqueVentes());
 
         // Recherche de trajets (accessible à tous)
-        ajouterBoutonMenu("🔍 Recherche de trajets", e -> afficherRechercheTrajets());
+        ajouterBoutonMenu(FontAwesomeIcon.SEARCH, "Recherche de trajets", e -> afficherRechercheTrajets());
 
         // Fonctionnalités réservées aux gérants
         if (utilisateurConnecte instanceof Gerant) {
@@ -148,11 +149,11 @@ public class FenetrePrincipale {
             titreGestion.setPadding(new Insets(10, 0, 10, 0));
             menuGauche.getChildren().add(titreGestion);
 
-            ajouterBoutonMenu("👤 Gestion des agents", e -> afficherGestionAgents());
-            ajouterBoutonMenu("🚌 Gestion des bus", e -> afficherGestionBus());
-            ajouterBoutonMenu("👨‍✈️ Gestion des chauffeurs", e -> afficherGestionChauffeurs());
-            ajouterBoutonMenu("🛣️ Gestion des trajets", e -> afficherGestionTrajets());
-            ajouterBoutonMenu("📊 Statistiques", e -> afficherStatistiques());
+            ajouterBoutonMenu(FontAwesomeIcon.USER_PLUS, "Gestion des agents", e -> afficherGestionAgents());
+            ajouterBoutonMenu(FontAwesomeIcon.BUS, "Gestion des bus", e -> afficherGestionBus());
+            ajouterBoutonMenu(FontAwesomeIcon.USER_SECRET, "Gestion des chauffeurs", e -> afficherGestionChauffeurs());
+            ajouterBoutonMenu(FontAwesomeIcon.ROAD, "Gestion des trajets", e -> afficherGestionTrajets());
+            ajouterBoutonMenu(FontAwesomeIcon.BAR_CHART, "Statistiques", e -> afficherStatistiques());
         }
 
         ScrollPane scrollMenu = new ScrollPane(menuGauche);
@@ -164,8 +165,12 @@ public class FenetrePrincipale {
         conteneurPrincipal.setLeft(scrollMenu);
     }
 
-    private void ajouterBoutonMenu(String texte, javafx.event.EventHandler<javafx.event.ActionEvent> action) {
-        Button bouton = new Button(texte);
+    private void ajouterBoutonMenu(FontAwesomeIcon icone, String texte, javafx.event.EventHandler<javafx.event.ActionEvent> action) {
+        FontAwesomeIconView iconeView = new FontAwesomeIconView(icone);
+        iconeView.setSize("1.5em");
+        iconeView.setFill(Color.WHITE);
+
+        Button bouton = new Button(texte, iconeView);
         bouton.setPrefWidth(210);
         bouton.setPrefHeight(40);
         bouton.setAlignment(Pos.CENTER_LEFT);
@@ -178,21 +183,27 @@ public class FenetrePrincipale {
             "-fx-background-radius: 5;"
         );
 
-        bouton.setOnMouseEntered(e -> bouton.setStyle(
-            "-fx-background-color: #27ae60; " +
-            "-fx-text-fill: white; " +
-            "-fx-border-color: transparent; " +
-            "-fx-cursor: hand; " +
-            "-fx-background-radius: 5;"
-        ));
+        bouton.setOnMouseEntered(e -> {
+            bouton.setStyle(
+                "-fx-background-color: #27ae60; " +
+                "-fx-text-fill: white; " +
+                "-fx-border-color: transparent; " +
+                "-fx-cursor: hand; " +
+                "-fx-background-radius: 5;"
+            );
+            iconeView.setFill(Color.WHITE);
+        });
 
-        bouton.setOnMouseExited(e -> bouton.setStyle(
-            "-fx-background-color: transparent; " +
-            "-fx-text-fill: white; " +
-            "-fx-border-color: transparent; " +
-            "-fx-cursor: hand; " +
-            "-fx-background-radius: 5;"
-        ));
+        bouton.setOnMouseExited(e -> {
+            bouton.setStyle(
+                "-fx-background-color: transparent; " +
+                "-fx-text-fill: white; " +
+                "-fx-border-color: transparent; " +
+                "-fx-cursor: hand; " +
+                "-fx-background-radius: 5;"
+            );
+            iconeView.setFill(Color.WHITE);
+        });
 
         bouton.setOnAction(action);
         menuGauche.getChildren().add(bouton);

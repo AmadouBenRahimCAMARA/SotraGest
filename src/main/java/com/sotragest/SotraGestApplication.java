@@ -39,7 +39,6 @@ public class SotraGestApplication extends Application {
         System.out.println("=".repeat(50));
         System.out.println("🎯 SOTRAGEST - Système de Gestion de Transport");
         System.out.println("=".repeat(50));
-        
         launch(args);
     }
 }
